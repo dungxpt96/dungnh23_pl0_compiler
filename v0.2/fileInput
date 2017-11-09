@@ -1,0 +1,21 @@
+(* This is comment *)
+Program StartMyProgram;
+Var a,b,c;
+NguyenHuuDung;
+
+Procedure gcd(a; b; var d);
+Begin
+    While a <> b Do
+        If a > b Then a := 123456 * a - b / 2;
+        Else b := b - a;
+    d := b;
+End;
+Begin
+begin
+bEGin
+beGIN
+    Call Readln(a);
+    Call Readln(b);
+    Call gcd(a,b,c);
+    Call Writeln(c);
+End.
