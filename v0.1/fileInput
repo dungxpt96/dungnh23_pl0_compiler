@@ -1,0 +1,17 @@
+/* This is comment */
+Program Example2;
+Var a,b,c;
+Procedure gcd(a; b; var d);
+Begin
+    While a <> b Do
+        If a > b Then a := 2 * a - b / 2;
+        Else b := b - a;
+    d := b;
+End;
+/* Call function */
+Begin
+    Call Readln(a);
+    Call Readln(b);
+    Call gcd(a,b,c);
+    Call Writeln(c);
+End
