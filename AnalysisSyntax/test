@@ -1,0 +1,13 @@
+(*  ha ha *)
+Program hello;
+Const a = 7;
+Procedure fact(A; vAR a; a);
+	coNst a =  5;
+	var a;
+
+	Begin
+		a[b] := +a[2] * (a);;;;;;;
+	End;
+
+.
+

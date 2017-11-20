@@ -75,12 +75,12 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf("Number too long\n");
@@ -92,7 +92,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf("Invalid symbol\n");
@@ -104,7 +104,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf("Keyword PROGRAM expected\n");
@@ -116,7 +116,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" IDENT expected after PROGRAM\n");
@@ -128,7 +128,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" SEMICOLON expected after IDENT\n");
@@ -140,7 +140,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" PERIOD expected to end program\n");
@@ -159,7 +159,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" IDENT expected after CONST keyword\n");
@@ -171,7 +171,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" ASSIGN expected after IDENT\n");
@@ -183,7 +183,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" NUMBER expected after ASSIGN\n");
@@ -195,7 +195,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" SEMICOLON expected to end CONST block\n");
@@ -207,7 +207,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" IDENT expected after COMMA in CONST block\n");
@@ -219,7 +219,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" IDENT expected after VAR keyword\n");
@@ -231,7 +231,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" IDENT expected after COMMA in VAR block\n");
@@ -243,7 +243,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" NUMBER expected after LBRACK in array var\n");
@@ -255,7 +255,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" RBRACK expected after NUMBER in VAR block\n");
@@ -267,10 +267,154 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf(" SEMICOLON or LBRACK expected\n");
+			exit(1);
+			break;
+		}
+		case 18:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" VAR or IDENT expected\n");
+			exit(1);
+			break;
+		}
+		case 19:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" RPARENT expected\n");
+			exit(1);
+			break;
+		}
+		case 20:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" SEMICOLON expected\n");
+			exit(1);
+			break;
+		}
+		case 21:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" IDENT expected\n");
+			exit(1);
+			break;
+		}
+		case 22:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" END expected\n");
+			exit(1);
+			break;
+		}
+		case 23:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" RBRACK expected\n");
+			exit(1);
+			break;
+		}
+		case 24:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" ASSIGN expected\n");
+			exit(1);
+			break;
+		}
+		case 25:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" Factor expected\n");
+			exit(1);
+			break;
+		}
+		case 26:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" THEN expected\n");
+			exit(1);
+			break;
+		}
+		case 27:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" DO expected\n");
+			exit(1);
+			break;
+		}
+		case 28:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" TO expected\n");
+			exit(1);
+			break;
+		}
+		case 29:
+		{
+			if (lastColumn == 0)
+			{
+				lastLine --;
+				lastColumn = lastLengthLine;
+			}
+			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
+			printf(" Condition: Syntax unexpected\n");
 			exit(1);
 			break;
 		}
@@ -279,7 +423,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf("Invalid file input, PL0 program expected\n");
@@ -291,7 +435,7 @@ void error(int id_error)
 			if (lastColumn == 0)
 			{
 				lastLine --;
-				lastColumn = lastLengthLine - 1;
+				lastColumn = lastLengthLine;
 			}
 			printf("\nError %d: Line:%d, Column:%d ::", id_error, lastLine, lastColumn);
 			printf("Invalid symbol\n");
@@ -397,18 +541,22 @@ void compileBlock()
 	{
 		handleConstBlock();
 	}
-	else if ((token != NULL) && (token->type == VAR))
+	
+	if ((token != NULL) && (token->type == VAR))
 	{
 		handleVarBlock();
 	}
-	else if ((token != NULL) && (token->type == PROCEDURE))
+	
+	if ((token != NULL) && (token->type == PROCEDURE))
 	{
 		handleProcedureBlock();
 	}
-	else if ((token != NULL) && (token->type == BEGIN))
+	
+	if ((token != NULL) && (token->type == BEGIN))
 	{
 		handleBeginEndBlock();
 	}
+	
 	if (hasBlock == 0)
 		error(7);
 }
@@ -420,7 +568,7 @@ void handleConstBlock()
 	if ((token != NULL) && (token->type == IDENT))
 	{
 		token = getToken();
-		if ((token != NULL) && (token->type == ASSIGN))
+		if ((token != NULL) && (token->type == EQU))
 		{
 			token = getToken();
 			if ((token != NULL) && (token->type == NUMBER))
@@ -468,8 +616,6 @@ void handleConstBlock()
 	}
 	else
 		error(8);
-
-	compileBlock();
 }
 
 void handleVarBlock()
@@ -542,14 +688,320 @@ void handleVarBlock()
 	}
 	else
 		error(13);
-
-	compileBlock();
 }
+
 void handleProcedureBlock()
 {
+	token = getToken();
+	if ((token != NULL) && (token->type == IDENT))
+	{
+		token = getToken();
+		if ((token != NULL) && (token->type == LPARENT))
+		{
+			token = getToken();
+			if ((token != NULL) && (token->type == VAR))
+			{
+				token = getToken();
+				if ((token != NULL) && (token->type == IDENT))
+				{
+					token = getToken();
+				}
+			}
+			else if ((token != NULL) && (token->type == IDENT))
+			{
+				token = getToken();
+			}
+			else
+			{
+				error(18);
+			}
+
+			while ((token != NULL) && (token->type == SEMICOLON))
+			{
+				token = getToken();
+				if ((token != NULL) && (token->type == VAR))
+				{
+					token = getToken();
+					if ((token != NULL) && (token->type == IDENT))
+					{
+						token = getToken();
+					}
+					else
+					{
+						error(21);
+					}
+				}
+				else if ((token != NULL) && (token->type == IDENT))
+				{
+					token = getToken();
+				}
+				else
+				{
+					error(18);
+				}
+			}
+
+			if ((token != NULL) && (token->type == RPARENT))
+			{
+				token = getToken();
+			}
+			else
+			{
+				error(19);
+			}
+		}
+
+		if ((token != NULL) && (token->type == SEMICOLON))
+		{
+			token = getToken();
+			compileBlock();
+			if ((token != NULL) && (token->type == SEMICOLON))
+			{
+				token = getToken();
+				if ((token != NULL) && (token->type == PROCEDURE))
+				{
+					handleProcedureBlock();
+				}
+			}
+			else
+			{
+				error(20);
+			}
+		}
+		else
+		{
+			error(20);
+		}
+	}
+	else
+	{
+		error(21);
+	}
 	compileBlock();
 }
+
 void handleBeginEndBlock()
 {
-	compileBlock();
+	compileStatement();
+
+	while ((token != NULL) && (token->type == SEMICOLON)) /***/
+	{
+		compileStatement();
+	}
+
+	if ((token != NULL) && (token->type == END))
+	{
+		token = getToken();
+	}
+	else
+	{
+		error(22);
+	}
+}
+
+void compileStatement()
+{
+	token = getToken();
+	if ((token != NULL) && (token->type == IDENT))
+	{
+		token = getToken();
+
+		if ((token != NULL) && (token->type == LBRACK))
+		{
+			compileExpression();
+			if ((token != NULL) && (token->type == RBRACK))
+			{
+				token = getToken();
+			}
+			else
+			{
+				error(23);
+			}
+		}
+
+		if ((token != NULL) && (token->type == ASSIGN))
+		{
+			compileExpression();
+		}
+		else
+		{
+			error(24);
+		}
+	}
+	else if ((token != NULL) && (token->type == CALL))
+	{
+		token = getToken();
+		if ((token != NULL) && (token->type == IDENT))
+		{
+			token = getToken();
+
+			if ((token != NULL) && (token->type == LPARENT))
+			{
+				compileExpression();
+				while((token != NULL) && (token->type == COMMA))
+					compileExpression();
+				if ((token != NULL) && (token->type == RPARENT))
+				{
+					token = getToken();
+				}
+				else
+					error(19);
+			}
+		}
+		else{
+			error(21);
+		}
+	}
+	else if ((token != NULL) && (token->type == BEGIN))
+	{
+		compileStatement();
+		while((token != NULL) && (token->type == SEMICOLON))
+		{
+			compileStatement();
+		}
+
+		if ((token != NULL) && (token->type == END))
+		{
+			token = getToken();
+		}
+		else
+		{
+			error(22);
+		}
+	}
+	else if ((token != NULL) && (token->type == IF))
+	{
+		compileCondition();
+		if ((token != NULL) && (token->type == THEN))
+		{
+			compileStatement();
+
+			if ((token != NULL) && (token->type == ELSE))
+			{
+				compileStatement();
+			}
+		}
+		else
+		{
+			error(26); // thieu THEN
+		}
+	}
+	else if ((token != NULL) && (token->type == WHILE))
+	{
+		compileCondition();
+
+		if ((token != NULL) && (token->type == DO))
+		{
+			compileStatement();
+		}
+		else
+		{
+			error(27); // thieu DO
+		}
+	}
+	else if ((token != NULL) && (token->type == FOR))
+	{
+		token = getToken();
+		if ((token == NULL) || (token->type != IDENT))
+			error(21);
+
+		token = getToken();
+		if ((token == NULL) || (token->type != ASSIGN))
+			error(21);
+
+		compileExpression();
+
+		if ((token == NULL) || (token->type != TO))
+			error(28);
+
+		compileExpression();
+
+		if ((token == NULL) || (token->type != DO))
+			error(27);
+
+		compileStatement();
+	}
+}
+
+void compileExpression()
+{
+	token = getToken();
+	if ((token != NULL) && ((token->type == PLUS) || (token->type == MINUS)))
+	{
+		token = getToken();
+	}
+
+	compileTerm();
+
+	while ((token != NULL) && ((token->type == PLUS) || (token->type == MINUS)))
+	{
+		token = getToken();
+		compileTerm();
+	}
+}
+
+void compileTerm()
+{
+	compileFactor();
+	while ((token != NULL) && ((token->type == TIMES) || (token->type == SLASH) || (token->type == PERCENT)))
+	{
+		token = getToken();
+		compileFactor();
+	}
+}
+
+void compileFactor()
+{
+	if ((token != NULL) && (token->type == IDENT))
+	{
+		token = getToken();
+		if ((token != NULL) && (token->type == LBRACK))
+		{
+			compileExpression();
+			if ((token != NULL) && (token->type == RBRACK))
+			{
+				token = getToken();
+			}
+			else
+			{
+				error(23);
+			}
+		}
+	}
+	else if ((token != NULL) && (token->type == NUMBER))
+	{
+		token = getToken();
+	}
+	else if ((token != NULL) && (token->type == LPARENT))
+	{
+		compileExpression();
+		if ((token != NULL) && (token->type == RPARENT))
+		{
+			token = getToken();
+		}
+		else
+		{
+			error(19);
+		}
+	}
+	else
+	{
+		error(25);
+	}
+}
+
+void compileCondition()
+{
+	compileExpression();
+
+	if ((token != NULL) && ( (token->type == EQU) || (token->type == NEQ) ||
+		(token->type == LSS) || (token->type == LEQ) || (token->type == GRT) ||
+		(token->type == GEQ)))
+	{
+		compileExpression();
+	}
+	else
+	{
+		error(29);
+	}
 }

@@ -10,7 +10,7 @@ void compileTerm();
 void compileFactor();
 void compileExpression();
 void compileCondition();
-void compileStatment();
+void compileStatement();
 void compileBlock();
 void compileProgram();
 
