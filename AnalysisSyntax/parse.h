@@ -19,4 +19,10 @@ void handleVarBlock();
 void handleProcedureBlock();
 void handleBeginEndBlock();
 
+void compileCallStatement();
+void compileBeginEndStatement();
+void compileIfElseStatement();
+void compileWhileStatement();
+void compileForStatement();
+
 #endif

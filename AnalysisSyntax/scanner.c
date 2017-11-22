@@ -77,8 +77,6 @@ token_t *getToken()
 
 	}
 
-	/* Check out character, get token */
-
 	/* get NUMBER */
 	if (isdigit(ch)) 
 	{

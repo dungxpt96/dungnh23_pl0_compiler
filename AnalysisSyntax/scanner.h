@@ -12,6 +12,8 @@
 char id[MAX_IDENT_LEN + 1];
 char num[MAX_NUM_LEN + 1];
 
+char const *fileNameInput;
+
 FILE *fp;
 int ch;
 int numLine;
@@ -79,7 +81,7 @@ token_t *getToken();
 token_t* checkKeyword(char *str);
 void showListToken();
 token_t* ignoreComment();
-void showHelpCommand(); // Done
-char getChar(); // Done\
+void showHelpCommand();
+char getChar(); 
 
 #endif

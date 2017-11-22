@@ -13,10 +13,12 @@ int main(int argc, char const *argv[])
 	{
 		printf("Warning: Too many input arguments!\n");
 		showHelpCommand();
+		fileNameInput = argv[1];
 		compile(argv[1]);
 	}
 	else
 	{
+		fileNameInput = argv[1];
 		compile(argv[1]);
 	}
 
