@@ -1,0 +1,7 @@
+Program Example2;
+Var a,b,c;
+
+Procedure gcd(a; b; var d);
+Begin
+	a := 10
+End;

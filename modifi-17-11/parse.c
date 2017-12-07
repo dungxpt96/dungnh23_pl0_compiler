@@ -1,5 +1,6 @@
 #include "parse.h"
 #include "scanner.h"
+#include "sematics.h"
 
 void compile(const char *filename)
 {
@@ -16,6 +17,13 @@ void compile(const char *filename)
 	lastLengthLine = 0;
 	begin = 1;
 	hasBlock = 0;
+	countSymbolTable = 1;
+	cur_level = 1;
+	cur_numTable = 1;
+	sTb[0].parentSymbolTable = -1; // Bang goc khong co CHA
+	sTb[0].levelOfTable = cur_level;
+
+	/* ------------------------------------------ */
 	ch = getChar();
 
 	token = getToken();
@@ -23,7 +31,9 @@ void compile(const char *filename)
 	{
 		compileProgram();
 
-		
+		token = getToken();
+		if (token != NULL)
+			error(38);
 
 		printf("\n");
 		printf("                      ......................\n");
@@ -93,7 +103,7 @@ void error(int id_error)
 		}
 		case 8:
 		{			
-			printf(" IDENT expected after CONST keyword\n");
+			printf(" IDENT expected after CONST keyword or COMMA in CONST block\n");
 			break;
 		}
 		case 9:
@@ -118,7 +128,7 @@ void error(int id_error)
 		}
 		case 13:
 		{			
-			printf(" IDENT expected after VAR keyword\n");
+			printf(" IDENT expected after VAR keyword or after COMMA in VAR block\n");
 			break;
 		}
 		case 14:
@@ -211,6 +221,16 @@ void error(int id_error)
 			printf("END expected\n");
 			break;
 		}
+		case 31:
+		{			
+			printf("Previous declaration of this ident was here\n");
+			break;
+		}
+		case 40:
+		{			
+			printf("BEGIN-END block expected\n");
+			break;
+		}
 		case 36:
 		{		
 			printf("Invalid symbol\n");
@@ -263,63 +283,45 @@ void compileBlock()
 			(token->type != BEGIN)))
 		error(7);
 
-	if (token->type == CONST)
+	if ((token != NULL) && token->type == CONST)
 	{
 		token = getToken();
 		handleConstBlock();
 	}
 	
-	if (token->type == VAR)
+	if ((token != NULL) && token->type == VAR)
 	{
 		token = getToken();
 		handleVarBlock();
 	}
 	
-	if (token->type == PROCEDURE)
+	if ((token != NULL) && token->type == PROCEDURE)
 	{
 		token = getToken();
 		handleProcedureBlock();
 	}
 	
-	if (token->type == BEGIN)
+	if ((token != NULL) && (token->type == BEGIN))
 	{
 		token = getToken();
 		handleBeginEndBlock();
+		cur_level--;
+		cur_numTable--;
 	}
+	else
+		error(40);
 }
 
 void handleConstBlock()
 {
 	hasBlock = 1;
 
-	if ((token == NULL) || (token->type != IDENT))
-		error(8);
-
-	token = getToken();
-	if ((token == NULL) || (token->type != EQU))
-		error(9);
-
-	token = getToken();
-	if ((token == NULL) || (token->type != NUMBER))
-		error(10);
-
-	token = getToken();
+	compileDeclareConst();
 
 	while ((token != NULL) && (token->type == COMMA))
 	{
 		token = getToken();
-		if ((token == NULL) || (token->type != IDENT))
-			error(12);
-
-		token = getToken();
-		if ((token == NULL) || (token->type != EQU))
-			error(9);
-
-		token = getToken();
-		if ((token == NULL) || (token->type != NUMBER))
-			error(10);
-
-		token = getToken();
+		compileDeclareConst();
 	}
 
 	if ((token == NULL) || (token->type != SEMICOLON))
@@ -333,42 +335,12 @@ void handleVarBlock()
 {
 	hasBlock = 1;
 
-	if ((token == NULL) || (token->type != IDENT))
-		error(13);
-
-	token = getToken();
-	if ((token != NULL) && (token->type == LBRACK))
-	{
-		token = getToken();
-		if ((token == NULL) || (token->type != NUMBER))
-			error(15);
-
-		token = getToken();
-		if ((token == NULL) || (token->type != RBRACK))
-			error(16);
-
-		token = getToken();
-	}
+	compileDeclareVar();
 
 	while ((token != NULL) && (token->type == COMMA))
 	{
 		token = getToken();
-		if ((token == NULL) || (token->type != IDENT))
-			error(14);
-
-		token = getToken();
-		if ((token != NULL) && (token->type == LBRACK))
-		{
-			token = getToken();
-			if ((token == NULL) || (token->type != NUMBER))
-				error(15);
-
-			token = getToken();
-			if ((token == NULL) || (token->type != RBRACK))
-				error(16);
-
-			token = getToken();
-		}
+		compileDeclareVar();
 	}
 
 	if ((token == NULL) || (token->type != SEMICOLON))
@@ -379,10 +351,7 @@ void handleVarBlock()
 
 void handleProcedureBlock()
 {
-	if ((token == NULL) || (token->type != IDENT))
-		error(21);
-
-	token = getToken();
+	compileDeclareProcedure();
 	if ((token != NULL) && (token->type == LPARENT))
 	{
 		token = getToken();
@@ -393,8 +362,7 @@ void handleProcedureBlock()
 		if (token->type == VAR)
 		{
 			token = getToken();
-			if ((token == NULL) || (token->type != IDENT))
-				error(17);
+			addDeclareVariableInProcedure();
 		}
 		/*  certain it is Ident */
 		token = getToken();
@@ -409,8 +377,7 @@ void handleProcedureBlock()
 			if (token->type == VAR)
 			{
 				token = getToken();
-				if ((token == NULL) || (token->type != IDENT))
-					error(17);
+				addDeclareVariableInProcedure();
 			}
 			/*  certain it is Ident */
 			token = getToken();

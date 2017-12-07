@@ -1,0 +1,46 @@
+call x => procedure
+
+x := ABC => not procedure
+
+write function sematics.c
+
+
+/* Chi so cac bang ky hieu */
+int countSymbolTable; // start = 1;
+/* Mot mang cac bang ky hieu */
+symbolTable sTb[1000];
+
+Cau truc kieu
+-	Kieu Array:
+
+struct {
+	int numElement; // so phan tu trong mang
+	int type; // kieu cua Mang
+}
+
+- Dinh danh:
+
+struct symbolIndent {
+	int index; // So thu tu cua danh bieu trong bang ky hieu
+	char *name; // Ten cua danh bieu
+	int type; // Loai danh bieu: variable, array, const, subProcedure
+	int offset;
+	int nextSymbolTable; // Trong truong hop subProcedure se su dung truong nay
+}
+
+typedef struct symbolIndent sumbolIndent;
+
+- Bang ky hieu:
+
+struct symbolTable
+{
+	int index; // chi so cua Bang Ky Hieu
+	int parentSymbolTable; // Chi so cua Bang Cha sinh ra bang ky hieu nay
+	int countSymbolIndent; // Tong so danh bieu hien tai co trong bang
+	int sizeOfTable; // Tong dung luong cua bang ky hieu (bao gom ca cac bang con)
+
+	/* Danh sach cac danh bieu */
+	symbolIdent listSymbolIndent[1000];
+}
+
+typedef struct symbolTable symbolTable;

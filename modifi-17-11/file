@@ -1,0 +1,29 @@
+Program Example2;		(*=> bang 0, khoi tao*)
+conST a = 7, nuyen = 8, c = 5;
+Var nguyen, anh[2], b, gcd;
+
+Procedure gcdd(a; b; var d); (*=> tao bang moi count = 1*)
+	Begin
+		a := 10
+	End;
+Procedure hello; (* => tao bang moi count = 2*)
+	procedure B1;
+		const b111 = 10;
+		var b222;
+		begin
+		end;
+	procedure B3;
+		var ccc, ddd, eee;
+		procedure C1;
+			begin
+			end;
+		begin
+		end;
+	procedure B2;
+		begin
+		end;
+	Begin
+	End;
+Begin
+End
+.
