@@ -1,0 +1,10 @@
+program A;
+const max = 10;
+var N;
+procedure foo;
+	var max;
+	begin
+		max := 5;
+	end;
+begin
+end.

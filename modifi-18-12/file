@@ -1,0 +1,13 @@
+program A;
+const max = 10;
+var N;
+procedure FOO(a; b; var c);
+	var max1;
+	begin
+		N := 3;
+	end;
+begin
+	N := 5;
+	N := 7;
+	N := max * N + 4 * N;
+end.
