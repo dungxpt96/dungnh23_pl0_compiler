@@ -1,5 +1,5 @@
 #include "scanner.h"
-
+/* Hello */
 int main(int argc, char *argv[])
 {
 	bool l = false, s = false;
