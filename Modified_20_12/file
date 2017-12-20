@@ -1,0 +1,18 @@
+program A;
+const max = 10;
+var N, M, c[5];
+procedure FOO(var b; var a);
+	procedure AAA;
+		begin
+			a := 5;
+			b := 6;
+		end;
+	begin
+		call AAA;
+	end;
+
+begin
+	call FOO(N, M);
+	write(n);
+	wRite(m);
+end.
