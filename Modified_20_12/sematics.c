@@ -1,5 +1,6 @@
 #include "sematics.h"
 #include "parse.h"
+#include "scanner.h"
 #include <ctype.h>
 
 char *objectTypeString[] = {"variable", "const", "array", "procedure"};
@@ -489,6 +490,7 @@ int handleFactorIdent()
 		error(31);
 	}
 	objectType t = getKind(token->name);
+	checkWord[numWord++] = token->type;
 	token = getToken();
 	if ((token != NULL) && (token->type != LBRACK))
 	{

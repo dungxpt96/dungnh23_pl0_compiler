@@ -27,6 +27,8 @@ void compileIfElseStatement();
 void compileWhileStatement();
 void compileForStatement();
 void compileWriteStatement();
+void printCheckWord(int t);
+void handleCheckWord();
 
 typedef struct location{
 	int base;

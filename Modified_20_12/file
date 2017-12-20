@@ -1,18 +1,21 @@
 program A;
 const max = 10;
 var N, M, c[5];
-procedure FOO(var b; var a);
+
+procedure FOO(var b; var a; var c);
 	procedure AAA;
 		begin
-			a := 5;
+			a := 5 * max;
 			b := 6;
+			c := 78;
 		end;
 	begin
 		call AAA;
 	end;
 
 begin
-	call FOO(N, M);
+	call FOO(N, c[0], M);
 	write(n);
-	wRite(m);
+	wRite(c[0]);
+	write(m);
 end.
