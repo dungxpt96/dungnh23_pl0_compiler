@@ -27,6 +27,7 @@ void compileIfElseStatement();
 void compileWhileStatement();
 void compileForStatement();
 void compileWriteStatement();
+void compileReadStatement();
 void printCheckWord(int t);
 void handleCheckWord();
 

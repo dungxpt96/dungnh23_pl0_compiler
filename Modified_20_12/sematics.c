@@ -86,7 +86,7 @@ void enter_ident(char *id_name, objectType ot, int t)
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].type = ot;
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].nextSymbolTable = -1;
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].index =nextIdent;
-	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].offset = 4 + sTb[countSymbolTable - 1].counterVarConst;
+	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].offset = 4 + 4 * sTb[countSymbolTable - 1].counterVarConst;
 	sTb[countSymbolTable - 1].countSymbolIndent ++;
 	sTb[countSymbolTable - 1].counterVarConst ++;
 }
@@ -99,7 +99,7 @@ void enter_ident_array(char *id_name, objectType ot, int value)
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].nextSymbolTable = -1;
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].index =nextIdent;
 	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].value = value;
-	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].offset = 4 + sTb[countSymbolTable - 1].counterVarConst;
+	sTb[countSymbolTable - 1].listSymbolIndent[nextIdent].offset = 4 + 4 * sTb[countSymbolTable - 1].counterVarConst;
 
 	sTb[countSymbolTable - 1].countSymbolIndent ++;
 	sTb[countSymbolTable - 1].counterVarConst += value;	

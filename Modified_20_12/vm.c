@@ -19,13 +19,13 @@ void intepreter()
 			case OP_LA:
 			{
 				t ++;
-				stack[t] = base(p) + q;
+				stack[t] = base(p) + (q + 12) / 4;
 				break;
 			}
 			case OP_LV:
 			{
 				t ++;
-				stack[t] = stack[base(p) + q];
+				stack[t] = stack[base(p) + (q + 12) / 4];
 				break;
 			}
 			case OP_LC:
@@ -113,6 +113,30 @@ void intepreter()
 			}
 			case OP_RI:
 			{
+				char value[100];
+				int i_value = -1;
+				int i;
+				printf("Enter a integer value: ");
+				scanf("%s", value);
+				for(i = 0; i < strlen(value); i++)
+				{
+					if ((i == 0) && (value[0] == '-'))
+						continue;
+					if (!isdigit(value[i]))
+					{
+						printf("Error: Value must be integer\n");
+						exit(-1);
+					}
+				}
+
+				i_value = atoi(value);
+				if ((i_value > 999999) || (i_value < -999999))
+				{
+					printf("Error: Number is not valid\n");
+					exit(-1);
+				}
+				t ++;
+				stack[t] = i_value;
 				break;
 			}
 			case OP_WRC:

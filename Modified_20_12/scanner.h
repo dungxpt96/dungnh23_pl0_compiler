@@ -78,6 +78,7 @@ typedef struct tokens{
 token_t *token;
 token_t listToken[10000];
 TokenType checkWord[1000];
+char n_checkWord[1000][100];
 int numWord;
 int numToken;
 

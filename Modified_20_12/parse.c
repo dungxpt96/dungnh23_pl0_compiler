@@ -314,6 +314,26 @@ void error(int id_error)
 			printf("RPARENT expected in WRITE statement\n");
 			break;
 		}
+		case 54:
+		{			
+			printf("VAR_TYPE or ARRAY_TYPE expected\n");
+			break;
+		}
+		case 55:
+		{			
+			printf("VAR_TYPE or ARRAY_TYPE expected\n");
+			break;
+		}
+		case 56:
+		{			
+			printf("Ident is not ARRAY_TYPE\n");
+			break;
+		}
+		case 57:
+		{			
+			printf("Index of array is not valid\n");
+			break;
+		}
 		case 36:
 		{		
 			printf("Invalid symbol\n");
@@ -555,7 +575,6 @@ void compileStatement()
 	if ((token != NULL) && (token->type == IDENT))
 	{
 		int token_value = getValue(token->name);
-
 		char temp_name[100];
 		strcpy(temp_name, token->name);
 
@@ -576,8 +595,15 @@ void compileStatement()
 			to_code(OP_LC, 0, 1);
 		}
 
+		objectType tt = getKind(temp_name);
+
 		if ((token != NULL) && (token->type == LBRACK))
 		{
+			if (tt == VAR_TYPE || tt == ARG_VALUE)
+			{
+				error(56);
+			}
+
 			token = getToken();
 			if((token != NULL) && (token->type == NUMBER))
 			{
@@ -634,6 +660,11 @@ void compileStatement()
 		token = getToken();
 		compileWriteStatement();
 	}
+	else if ((token != NULL) && (token->type == READ))
+	{
+		token = getToken();
+		compileReadStatement();
+	}
 }
 
 void compileWriteStatement()
@@ -643,8 +674,66 @@ void compileWriteStatement()
 
 	token = getToken();
 
+	/* Token tiep theo la IDENT */
+	/* Kiem tra xem ident co phai la VAR_TYPE hoac  */
+	numWord = 0;
+	strcpy(n_checkWord[0], token->name);
 	compileExpression();
+	//printCheckWord(numWord);
+	handleCheckWord();
 	to_code(OP_WRI, 0, 0); 
+
+	if ((token == NULL) || (token->type != RPARENT))
+		error(53);
+
+	token = getToken();
+}
+
+void compileReadStatement()
+{
+	if ((token == NULL) || (token->type != LPARENT))
+		error(52);
+
+	token = getToken();
+	char temp_name[100];
+	if ((token == NULL) || (token->type != IDENT))
+	{
+		error(21);
+	}
+
+	strcpy(temp_name, token->name);
+	/* Chac chan la ident */
+	strcpy(n_checkWord[0], temp_name);
+	numWord = 0;
+	checkExpressionIsIdent = 0;
+	compileExpression();
+	handleCheckWord();
+	//printf("\n_-_-_-_-_- checkExpressionIsIdent : %d\n", checkExpressionIsIdent);
+	if (checkExpressionIsIdent == 0)
+	{
+		objectType t = getKind(temp_name);
+		//printf("temp_name: %s\n", temp_name);
+		if ((t != VAR_TYPE) && (t != ARG_VALUE))
+		{
+			error(54);
+		}
+
+		location_id = location_ident(temp_name);
+		code_size --;
+		to_code(OP_LA, location_id->base, location_id->offset);
+		to_code(OP_RI, 0, 0);
+		to_code(OP_ST, 0, 0);
+	}
+	else if (checkExpressionIsIdent == 4)
+	{
+		code_size --;
+		to_code(OP_RI, 0, 0);
+		to_code(OP_ST, 0, 0);
+	}
+	else
+	{
+		error(54);
+	}
 
 	if ((token == NULL) || (token->type != RPARENT))
 		error(53);
@@ -675,7 +764,7 @@ void compileCallStatement()
 		token = getToken();
 		char temp_name[100];
 		strcpy(temp_name, token->name);
-
+		strcpy(n_checkWord[0], temp_name);
 		checkExpressionIsIdent = 0;
 		if ((token != NULL) && (token->type != IDENT))
 		{
@@ -688,7 +777,7 @@ void compileCallStatement()
 		numWord = 0;
 		compileExpression();
 		handleCheckWord();
-		printf("checkExpressionIsIdent = %d\n", checkExpressionIsIdent);
+		//printf("checkExpressionIsIdent = %d\n", checkExpressionIsIdent);
 		//printf("after compileExpression: checkExpressionIsIdent = %d\n", checkExpressionIsIdent);
 		if (checkExpressionIsIdent == 0)
 		{
@@ -703,7 +792,7 @@ void compileCallStatement()
 				}
 
 				code_size --;
-				printf("-------code_size-var in procedure-%d-----\n", code_size);
+				//printf("-------code_size-var in procedure-%d-----\n", code_size);
 				location_id = location_ident(temp_name);
 				to_code(OP_LA, location_id->base, location_id->offset);
 			}
@@ -728,6 +817,7 @@ void compileCallStatement()
 			token = getToken();
 			char temp_name[100];
 			strcpy(temp_name, token->name);
+			strcpy(n_checkWord[0], temp_name);
 			checkExpressionIsIdent = 0;
 			/*			
 			if ((token != NULL) && (token->type != IDENT))
@@ -740,7 +830,7 @@ void compileCallStatement()
 			numWord = 0;
 			compileExpression();
 			handleCheckWord();
-			printf("checkExpressionIsIdent = %d\n", checkExpressionIsIdent);
+			//printf("checkExpressionIsIdent = %d\n", checkExpressionIsIdent);
 			if (checkExpressionIsIdent == 0)
 			{
 				/* is ident */
@@ -754,7 +844,7 @@ void compileCallStatement()
 					}
 
 					code_size --;
-					printf("-------code_size-var in procedure-%d-----\n", code_size);
+					//printf("-------code_size-var in procedure-%d-----\n", code_size);
 					location_id = location_ident(temp_name);
 					to_code(OP_LA, location_id->base, location_id->offset);
 				}
@@ -780,7 +870,7 @@ void compileCallStatement()
 		if ((token == NULL) || (token->type != RPARENT))
 			error(19);
 
-		printf("\n==%d==%d==\n", countArg, sTb[index].numArguments);
+		//printf("\n==%d==%d==\n", countArg, sTb[index].numArguments);
 		if (countArg != sTb[index].numArguments)
 		{
 			error(49);
@@ -867,9 +957,9 @@ void compileWhileStatement()
 	compileStatement();
 
 	to_code(OP_J, 0, label_while);
-	printf("\n------------code_size=%d\n", code_size);
+	//printf("\n------------code_size=%d\n", code_size);
 	update_lastest_label(code_size);
-	printf("\n---------Updated\n");
+	//printf("\n---------Updated\n");
 }
 
 void compileForStatement()
@@ -936,7 +1026,8 @@ void compileExpression()
 	{
 		ob = token->type;
 		checkExpressionIsIdent = 1;
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 	}
 
@@ -954,7 +1045,8 @@ void compileExpression()
 	while ((token != NULL) && ((token->type == PLUS) || (token->type == MINUS)))
 	{
 		ob = token->type;
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 		checkExpressionIsIdent = 1;
 		compileTerm();
@@ -977,7 +1069,8 @@ void compileTerm()
 	{
 		objectType ob = token->type;
 		checkExpressionIsIdent = 1;
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 		compileFactor();
 
@@ -1032,7 +1125,8 @@ void compileFactor()
 
 		if ((token != NULL) && (token->type == LBRACK))
 		{
-			checkWord[numWord++] = token->type;
+			strcpy(n_checkWord[numWord], token->name);
+            checkWord[numWord++] = token->type;
 			token = getToken();
 			if((token != NULL) && (token->type == NUMBER))
 			{
@@ -1048,7 +1142,8 @@ void compileFactor()
 			to_code(OP_LI, 0, 0);
 			if ((token == NULL) || (token->type != RBRACK))
 				error(23);
-			checkWord[numWord++] = token->type;
+			strcpy(n_checkWord[numWord], token->name);
+            checkWord[numWord++] = token->type;
 			token = getToken();
 		}
 	}
@@ -1058,18 +1153,21 @@ void compileFactor()
 		to_code(OP_LC, 0, num);
 
 		checkExpressionIsIdent = 1;
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 	}
 	else if ((token != NULL) && (token->type == LPARENT))
 	{
 		checkExpressionIsIdent = 1;
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 		compileExpression();
 		if ((token == NULL) || (token->type != RPARENT))
 			error(19);
-		checkWord[numWord++] = token->type;
+		strcpy(n_checkWord[numWord], token->name);
+        checkWord[numWord++] = token->type;
 		token = getToken();
 	}
 	else
@@ -1223,7 +1321,7 @@ void print_code()
 			}
 			case OP_RI:
 			{
-				printf("%-5d%-5s%-5d%-5d\n", i, "LA", m_code[i].p, m_code[i].q);
+				printf("%-5d%-5s\n", i, "RI");
 				break;
 			}
 			case OP_WRC:
@@ -1334,7 +1432,7 @@ void printCheckWord(int t)
 	printf("..............................................\n");
 	for (i = 0; i < t; i ++)
 	{
-		printf("\n%d", checkWord[i]);
+		printf("\n%d:%d==%s", i,checkWord[i],n_checkWord[i]);
 	}
 	printf("..............................................\n");
 
@@ -1342,6 +1440,14 @@ void printCheckWord(int t)
 
 void handleCheckWord()
 {
+	if (numWord == 5)
+	{
+		if ((checkWord[0] == IDENT) && (checkWord[1] == LBRACK) && (checkWord[2] == MINUS))
+		{
+			error(57);
+		}
+	}
+
 	if (numWord > 4)
 	{
 		checkExpressionIsIdent == 1;
@@ -1374,7 +1480,18 @@ void handleCheckWord()
 		checkExpressionIsIdent == 1;
 		return;
 	}
+	
+	//printf("-----n_checkWord:%s-%s\n", n_checkWord[0], n_checkWord[2]);
+	int token_value = getValue(n_checkWord[0]);
+	int va = atoi(n_checkWord[2]);
 
+	//printf("token_value:%d-----va:%d\n", token_value, va);
+	if ((va < 0) || (va >= token_value))
+	{
+		error(57);
+	}
+
+	
 	if (checkWord[3] != RBRACK)
 	{
 		checkExpressionIsIdent == 1;
